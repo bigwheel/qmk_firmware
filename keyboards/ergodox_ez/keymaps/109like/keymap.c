@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LEFT |           | RIGHT|------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  |   \    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | ~L1  | LAlt | LGui |      | Eisu |                                       | Kana |   |  |   [  |   ]  | ~L2  |
+ *   | ~L1  | LAlt | LGui |      | Muhen|                                       |Henkan|   |  |   [  |   ]  | ~L2  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | App  | Home |       | PgUp |  Ctrl  |
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_DOWN,
         KC_LCTRL,       KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_LEFT,
-        KC_FN1,         KC_LALT,      KC_LGUI,KC_TRNS,KC_LANG2,
+        KC_FN1,         KC_LALT,      KC_LGUI,KC_TRNS,KC_MHEN,
                                               ALT_T(KC_APP),  KC_HOME,
                                                               KC_END,
                                                KC_SPC,KC_BSPC,KC_ESC,
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_UP,       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_LBRC,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
              KC_RIGHT,    KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RO,
-                                KC_LANG1, KC_JYEN,KC_RBRC,KC_BSLS,          KC_FN2,
+                                KC_HENK, KC_JYEN,KC_RBRC,KC_BSLS,          KC_FN2,
              KC_PGUP,        KC_LCTRL,
              KC_PGDN,
              KC_LALT,KC_DEL, KC_ENT
