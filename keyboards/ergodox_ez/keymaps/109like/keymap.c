@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.       ,--------------------------------------------------.
- * |   1    |   2  |   3  |   4  |   5  |   6  | Hyper|       | PrScr|   7  |   8  |   9  |   0  |   -  |   ^    |
+ * |   1    |   2  |   3  |   4  |   5  |   6  |      |       | PrScr|   7  |   8  |   9  |   0  |   -  |   ^    |
  * |--------+------+------+------+------+-------------|       |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  | Down |       |  Up  |   Y  |   U  |   I  |   O  |   P  |   @    |
  * |--------+------+------+------+------+------|      |       |      |------+------+------+------+------+--------|
@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LEFT |       | RIGHT|------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |       |      |   N  |   M  |   ,  |   .  |   /  |   \    |
  * `--------+------+------+------+------+-------------'       `-------------+------+------+------+------+--------'
- *   | ~L1  | LGui | LAlt |      | Muhen|                                   |Henkan|   |  |   [  |   ]  | ~L2  |
+ *   | ~L1  | LGui | LAlt |      | Muhen|                                   |Henkan|   |  |   [  |   ]  |      |
  *   `----------------------------------'                                   `----------------------------------'
  *                                      ,-------------.       ,-------------.
  *                                      | App  | Home |       | PgUp | Ctrl |
@@ -26,11 +26,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |ace   | Esc  |       | Alt  |      |      |
  *                               `--------------------'       `--------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[BASE] = LAYOUT_ergodox(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(
   // left hand
-  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,          ALL_T(KC_NO),
+  KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,          KC_TRNS,
   KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          KC_DOWN,
   KC_LCTRL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,          KC_LEFT,
@@ -43,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_UP,    KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
             KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_RIGHT, KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RO,
-                    KC_HENK, KC_JYEN, KC_RBRC, KC_BSLS, KC_FN2,
+                    KC_HENK, KC_JYEN, KC_RBRC, KC_BSLS, KC_TRANS,
   KC_PGUP,  KC_LCTRL,
   KC_PGDN,
   KC_LALT,  KC_DEL, KC_ENT
@@ -69,7 +67,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |      |      |       |      |      |      |
  *                               `--------------------'       `--------------------'
  */
-// SYMBOLS
 [SYMB] = LAYOUT_ergodox(
   // left hand
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   M(0),
