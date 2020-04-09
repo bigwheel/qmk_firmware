@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer
+#define PC   0 // default layer
 #define SYMB 1 // symbols
 
 enum custom_keycodes {
@@ -9,7 +9,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer
+/* Keymap 0: PC layer
  *
  * ,--------------------------------------------------.       ,--------------------------------------------------.
  * |   1    |   2  |   3  |   4  |   5  |   6  | Up   |       | PrScr|   7  |   8  |   9  |   0  |   -  |   ^    |
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |ace   | Esc  |       |      |      |      |
  *                               `--------------------'       `--------------------'
  */
-[BASE] = LAYOUT_ergodox(
+[PC] = LAYOUT_ergodox(
   // left hand
   KC_1,     KC_2,     KC_3,    KC_4,    KC_5,    KC_6,    KC_UP,
   KC_TAB,   KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_DOWN,
@@ -91,24 +91,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-      case VRSN:
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        return false;
-    }
-  }
-  return true;
-}
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-#ifdef RGBLIGHT_COLOR_LAYER_0
-  rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-#endif
 };
 
 // Runs whenever there is a layer state change.
