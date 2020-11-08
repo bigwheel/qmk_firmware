@@ -16,6 +16,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[6] = LAYOUT_ortho_3x10(RESET, DF(0), DF(1), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LANG5, KC_PSCR, KC_SLCK, KC_PAUS, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_INS, KC_KANA, KC_APP)
 };
 
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
-}
