@@ -6,6 +6,21 @@
  * edit it directly.
  */
 
+
+enum custom_keycodes {
+    CKC_0 = SAFE_RANGE,
+    CKC_1,
+    CKC_2,
+    CKC_3,
+    CKC_4,
+    CKC_5,
+    CKC_6,
+    CKC_2_TAP = KC_V,
+    CKC_3_TAP = KC_M,
+    CKC_4_TAP = KC_B,
+    CKC_5_TAP = KC_N,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_ortho_3x10(KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, LCTL_T(KC_A), KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, RCTL_T(KC_ENT), LSFT_T(KC_Z), LGUI_T(KC_X), LALT_T(KC_C), LT(2,KC_V), LT(4,KC_B), LT(5,KC_N), LT(3,KC_M), RALT_T(KC_MHEN), RGUI_T(KC_HENK), RSFT_T(KC_SPC)),
 	[1] = LAYOUT_ortho_3x10(KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, LCTL_T(KC_A), KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, RCTL_T(KC_ENT), LSFT_T(KC_Z), LALT_T(KC_X), LGUI_T(KC_C), LT(2,KC_V), LT(4,KC_B), LT(5,KC_N), LT(3,KC_M), RGUI_T(KC_LANG2), RALT_T(KC_LANG1), RSFT_T(KC_SPC)),
@@ -16,6 +31,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[6] = LAYOUT_ortho_3x10(RESET, DF(0), DF(1), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LANG5, KC_PSCR, KC_SLCK, KC_PAUS, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_TRNS, KC_INS, KC_KANA, KC_APP)
 };
 
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
+
+static bool ckc_2_pressed = false;
+static uint16_t ckc_2_pressed_time = 0;
+static bool ckc_3_pressed = false;
+static uint16_t ckc_3_pressed_time = 0;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case CKC_2:
+      if (record->event.pressed) {
+        ckc_2_pressed = true;
+        ckc_2_pressed_time = record->event.time;
+
+        layer_on(2);
+        update_tri_layer(2, 3, 6);
+      } else {
+        layer_off(2);
+        update_tri_layer(2, 3, 6);
+
+        if (ckc_2_pressed && (TIMER_DIFF_16(record->event.time, ckc_2_pressed_time) < TAPPING_TERM)) {
+          register_code(KC_LANG2); // for macOS
+          register_code(KC_MHEN);
+          unregister_code(KC_MHEN);
+          unregister_code(KC_LANG2);
+        }
+        ckc_2_pressed = false;
+      }
+      return false;
+      break;
+    case CKC_3:
+      if (record->event.pressed) {
+        ckc_3_pressed = true;
+        ckc_3_pressed_time = record->event.time;
+
+        layer_on(3);
+        update_tri_layer(2, 3, 6);
+      } else {
+        layer_off(3);
+        update_tri_layer(2, 3, 6);
+
+        if (ckc_3_pressed && (TIMER_DIFF_16(record->event.time, ckc_3_pressed_time) < TAPPING_TERM)) {
+          register_code(KC_LANG1); // for macOS
+          register_code(KC_HENK);
+          unregister_code(KC_HENK);
+          unregister_code(KC_LANG1);
+        }
+        ckc_3_pressed = false;
+      }
+      return false;
+      break;
+    case ADJUST:
+      if (record->event.pressed) {
+        layer_on(6);
+      } else {
+        layer_off(6);
+      }
+      return false;
+      break;
+    default:
+      if (record->event.pressed) {
+        // reset the flags
+        ckc_2_pressed = false;
+        ckc_3_pressed = false;
+      }
+      break;
+  }
+  return true;
 }
