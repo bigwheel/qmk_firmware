@@ -1,6 +1,6 @@
 {
   "keyboard": "bat43/rev2",
-  "keymap": "bat43_rev2_layout_mine",
+  "keymap": "bat43_rev2_sensible",
   "layout": "LAYOUT",
   "layers": [
     [
