@@ -35,11 +35,8 @@ uint32_t keymaps_len() {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  bool continue_process = process_record_user_bmp(keycode, record);
-  if (continue_process == false)
-  {
+  if (process_record_user_bmp(keycode, record) == false)
     return false;
-  }
 
   return true;
 }
