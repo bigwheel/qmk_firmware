@@ -21,13 +21,15 @@
 // デフォルトのキーマップでこれを使用することはほぼないが、一応残しておく
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{
-    KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I,
-        KC_J, KC_K, KC_L, KC_M, KC_N, KC_O, KC_P, KC_Q, KC_R, KC_S
+    KC_D, KC_E, KC_F, KC_A, KC_U, KC_L, KC_T,
+        KC_K, KC_E, KC_Y, KC_M, KC_A, KC_P,
+        KC_B, KC_Y,
+        KC_F, KC_I, KC_R, KC_M, KC_W, KC_A, KC_R, KC_E
     }}
 };
 
 uint32_t keymaps_len() {
-  return 19;
+  return 23;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
