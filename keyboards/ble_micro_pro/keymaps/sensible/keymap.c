@@ -18,6 +18,8 @@
 #include "bmp_custom_keycode.h"
 #include "keycode_str_converter.h"
 
+const key_string_map_t custom_keys_user = {};
+
 // デフォルトのキーマップでこれを使用することはほぼないが、一応残しておく
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{
