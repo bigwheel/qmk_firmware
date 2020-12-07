@@ -18,23 +18,7 @@
 #include "bmp_custom_keycode.h"
 #include "keycode_str_converter.h"
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-    LOWER = BMP_SAFE_RANGE,
-    RAISE,
-};
-
-const key_string_map_t custom_keys_user =
-{
-    .start_kc = LOWER,
-    .end_kc = RAISE,
-    .key_strings = "LOWER\0RAISE\0"
-};
-
-enum layers {
-    _BASE, _LOWER, _RAISE, _ADJUST
-};
-
+// デフォルトのキーマップでこれを使用することはほぼないが、一応残しておく
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{
     KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_H, KC_I,
