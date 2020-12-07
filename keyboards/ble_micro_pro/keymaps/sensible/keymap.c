@@ -36,7 +36,17 @@ uint32_t keymaps_len() {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_user_bmp(keycode, record) == false)
-    return false;
+    return PROCESS_OVERRIDE_BEHAVIOR;
+
+  switch (keycode) {
+    case KC_ESCAPE:
+      if (record->event.pressed) {
+        // TODO: 横着しているので、現在のDEFAULT LAYERを参照してどちらを押すか判定すること
+        tap_code(KC_MHEN);
+        tap_code(KC_LANG2);
+      }
+      break;
+  }
 
   return true;
 }
