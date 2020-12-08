@@ -59,6 +59,9 @@ const uint16_t leave_ime_on_keys[] = {
 };
 const int length_of_leave_ime_on_keys = sizeof leave_ime_on_keys / sizeof leave_ime_on_keys[0];
 
+// sensibleキーマップは統一してレイヤー0をPC用キーマップ、レイヤー1をMac用キーマップにしている
+#define LAYER_PC  (0)
+#define LAYER_MAC (1)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_user_bmp(keycode, record) == false)
@@ -67,9 +70,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   for (int i = 0; i < length_of_leave_ime_on_keys; i++) {
     if (leave_ime_on_keys[i] == keycode) {
       if (record->event.pressed) {
-        // TODO: 横着しているので、現在のDEFAULT LAYERを参照してどちらを押すか判定すること
-        tap_code(KC_MHEN);
-        tap_code(KC_LANG2);
+        if (IS_LAYER_ON(LAYER_PC))
+          tap_code(KC_MHEN);
+        else if (IS_LAYER_ON(LAYER_MAC)) // ここは単にelseでもいいがfool proofのためチェックを入れておく
+          tap_code(KC_LANG2);
       }
       break;
     }
