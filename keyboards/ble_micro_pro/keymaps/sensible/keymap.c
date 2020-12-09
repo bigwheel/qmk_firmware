@@ -17,7 +17,6 @@
 #include "bmp.h"
 #include "bmp_custom_keycode.h"
 #include "keycode_str_converter.h"
-#include <stdio.h>
 
 const key_string_map_t custom_keys_user = {};
 
@@ -73,10 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   for (int i = 0; i < length_of_leave_ime_on_keys; i++) {
     if (leave_ime_on_keys[i] == keycode) {
       if (record->event.pressed) {
-        char str[100];
-        sprintf(str, "%ld", default_layer_state);
-        SEND_STRING(str);
-        switch (default_layer_state) {
+        switch (biton32(default_layer_state)) {
           case LAYER_PC:
             tap_code(KC_MHEN);
             break;
