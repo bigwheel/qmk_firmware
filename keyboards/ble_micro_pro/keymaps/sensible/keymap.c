@@ -35,9 +35,6 @@ uint32_t keymaps_len() {
   return 23;
 }
 
-#define PROCESS_OVERRIDE_BEHAVIOR   (false)
-#define PROCESS_USUAL_BEHAVIOR      (true)
-
 // アルファベット以外で処理をすれば最初はよいかなと考えていたが
 // modifier key, backspaceなど例外が多数あることを考えれば
 // 結局自分で定義するのが一旦楽という結論になった。
@@ -84,8 +81,11 @@ enum layers {
   LAYER_MAC
 };
 
+#define PROCESS_OVERRIDE_BEHAVIOR   (false)
+#define PROCESS_USUAL_BEHAVIOR      (true)
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (process_record_user_bmp(keycode, record) == false)
+  if (process_record_user_bmp(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
     return PROCESS_OVERRIDE_BEHAVIOR;
 
   bool leave_ime_on = false;
@@ -118,5 +118,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     set_mods(real_mods_memory);
   }
 
-  return true;
+  return PROCESS_USUAL_BEHAVIOR;
 }
