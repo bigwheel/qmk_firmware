@@ -17,6 +17,7 @@
 #include "bmp.h"
 #include "bmp_custom_keycode.h"
 #include "keycode_str_converter.h"
+#include <stdbool.h>
 
 const key_string_map_t custom_keys_user = {};
 
@@ -45,6 +46,23 @@ uint32_t keymaps_len() {
 const uint16_t leave_ime_on_keys[] = {
   KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
   KC_GRAVE,
+  // KC_MINUS,
+  KC_EQUAL,
+  KC_LBRACKET,
+  KC_RBRACKET,
+  KC_BSLASH,
+  KC_SCOLON,
+  KC_QUOTE,
+  // KC_COMMA,
+  // KC_DOT,
+  KC_SLASH,
+  KC_ESCAPE
+};
+const int length_of_leave_ime_on_keys = sizeof leave_ime_on_keys / sizeof leave_ime_on_keys[0];
+
+const uint16_t leave_ime_on_keys_with_shift[] = {
+  KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
+  KC_GRAVE,
   KC_MINUS,
   KC_EQUAL,
   KC_LBRACKET,
@@ -57,7 +75,8 @@ const uint16_t leave_ime_on_keys[] = {
   KC_SLASH,
   KC_ESCAPE
 };
-const int length_of_leave_ime_on_keys = sizeof leave_ime_on_keys / sizeof leave_ime_on_keys[0];
+const int length_of_leave_ime_on_keys_with_shift =
+   sizeof leave_ime_on_keys_with_shift / sizeof leave_ime_on_keys_with_shift[0];
 
 // sensibleキーマップは統一してレイヤー0をPC用キーマップ、レイヤー1をMac用キーマップにしている
 enum layers {
@@ -69,23 +88,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_user_bmp(keycode, record) == false)
     return PROCESS_OVERRIDE_BEHAVIOR;
 
-  for (int i = 0; i < length_of_leave_ime_on_keys; i++) {
+  bool leave_ime_on = false;
+  for (int i = 0; i < length_of_leave_ime_on_keys; i++)
     if (leave_ime_on_keys[i] == keycode) {
-      if (record->event.pressed) {
-        switch (biton32(default_layer_state)) {
-          case LAYER_PC:
-            tap_code(KC_MHEN);
-            break;
-          case LAYER_MAC:
-            tap_code(KC_LANG2);
-            break;
-          default:
-            SEND_STRING("ILLEGAL STATE!");
-            return false;
-        }
-      }
+      leave_ime_on = true;
       break;
     }
+  // https://www.reddit.com/r/olkb/comments/covpq3/problem_checking_for_modifier_key_on_custom_key/
+  if (get_mods() & MOD_MASK_SHIFT)
+    for (int i = 0; i < length_of_leave_ime_on_keys_with_shift; i++)
+      if (leave_ime_on_keys_with_shift[i] == keycode) {
+        leave_ime_on = true;
+        break;
+      }
+
+  if (leave_ime_on && record->event.pressed) {
+    uint8_t real_mods_memory = get_mods();
+    clear_mods();
+    switch (biton32(default_layer_state)) {
+      case LAYER_PC:
+        tap_code(KC_MHEN);
+        break;
+      case LAYER_MAC:
+        tap_code(KC_LANG2);
+        break;
+      default:
+        SEND_STRING("ILLEGAL STATE!");
+    }
+    set_mods(real_mods_memory);
   }
 
   return true;
