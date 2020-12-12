@@ -95,7 +95,37 @@ enum layers {
 
 bool dispel_is_pressing = false;
 
+// 参考元: https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_macros#super-alt-tab
+bool ime_is_disabled_automatically = false;
+uint16_t last_key_record_time = 0;
+#define IME_DISABLED_TIME 10000
+
+// デフォルトレイヤーに合わせて日本語入力をOFFにする
+void off_ime() {
+  switch (biton32(default_layer_state)) {
+    case LAYER_PC:
+      tap_code(KC_MHEN);
+      break;
+    case LAYER_MAC:
+      tap_code(KC_LANG2);
+      break;
+    default:
+      SEND_STRING("ILLEGAL STATE!");
+  }
+}
+
+void matrix_scan_user(void) {
+  if (ime_is_disabled_automatically == false)
+    if (timer_elapsed(last_key_record_time) > IME_DISABLED_TIME) {
+      off_ime();
+      ime_is_disabled_automatically = true;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  last_key_record_time = timer_read();
+  ime_is_disabled_automatically = false;
+
   if (process_record_user_bmp(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
     return PROCESS_OVERRIDE_BEHAVIOR;
 
@@ -122,16 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (leave_ime_on && record->event.pressed) {
       uint8_t real_mods_memory = get_mods();
       clear_mods();
-      switch (biton32(default_layer_state)) {
-        case LAYER_PC:
-          tap_code(KC_MHEN);
-          break;
-        case LAYER_MAC:
-          tap_code(KC_LANG2);
-          break;
-        default:
-          SEND_STRING("ILLEGAL STATE!");
-      }
+      off_ime();
       set_mods(real_mods_memory);
     }
   }
