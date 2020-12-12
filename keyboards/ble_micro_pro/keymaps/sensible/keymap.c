@@ -52,7 +52,7 @@ uint32_t keymaps_len() {
 const uint16_t leave_ime_on_keys[] = {
   // https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes_basic#letters-and-numbers
   KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
-  KC_ESCAPE
+  KC_ESCAPE,
   // KC_MINUS,
   KC_EQUAL,
   KC_LBRACKET,
@@ -64,13 +64,36 @@ const uint16_t leave_ime_on_keys[] = {
   // KC_COMMA,
   // KC_DOT,
   KC_SLASH,
+
+  // https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes_us_ansi_shifted.md
+  KC_TILDE,
+  KC_EXCLAIM,
+  KC_AT,
+  KC_HASH,
+  KC_DOLLAR,
+  KC_PERCENT,
+  KC_CIRCUMFLEX,
+  KC_AMPERSAND,
+  KC_ASTERISK,
+  KC_LEFT_PAREN,
+  KC_RIGHT_PAREN,
+  KC_UNDERSCORE,
+  KC_PLUS,
+  KC_LEFT_CURLY_BRACE,
+  KC_RIGHT_CURLY_BRACE,
+  KC_PIPE,
+  KC_COLON,
+  KC_DOUBLE_QUOTE,
+  KC_LEFT_ANGLE_BRACKET,
+  KC_RIGHT_ANGLE_BRACKET,
+  KC_QUESTION
 };
 const int length_of_leave_ime_on_keys = sizeof leave_ime_on_keys / sizeof leave_ime_on_keys[0];
 
 const uint16_t leave_ime_on_keys_with_shift[] = {
   // https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes_basic#letters-and-numbers
   KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
-  KC_ESCAPE
+  KC_ESCAPE,
   KC_MINUS,
   KC_EQUAL,
   KC_LBRACKET,
@@ -82,6 +105,29 @@ const uint16_t leave_ime_on_keys_with_shift[] = {
   KC_COMMA,
   KC_DOT,
   KC_SLASH,
+
+  // https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes_us_ansi_shifted.md
+  KC_TILDE,
+  KC_EXCLAIM,
+  KC_AT,
+  KC_HASH,
+  KC_DOLLAR,
+  KC_PERCENT,
+  KC_CIRCUMFLEX,
+  KC_AMPERSAND,
+  KC_ASTERISK,
+  KC_LEFT_PAREN,
+  KC_RIGHT_PAREN,
+  KC_UNDERSCORE,
+  KC_PLUS,
+  KC_LEFT_CURLY_BRACE,
+  KC_RIGHT_CURLY_BRACE,
+  KC_PIPE,
+  KC_COLON,
+  KC_DOUBLE_QUOTE,
+  KC_LEFT_ANGLE_BRACKET,
+  KC_RIGHT_ANGLE_BRACKET,
+  KC_QUESTION
 };
 const int length_of_leave_ime_on_keys_with_shift =
    sizeof leave_ime_on_keys_with_shift / sizeof leave_ime_on_keys_with_shift[0];
