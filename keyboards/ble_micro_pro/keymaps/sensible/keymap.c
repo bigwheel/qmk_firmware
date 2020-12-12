@@ -50,8 +50,9 @@ uint32_t keymaps_len() {
 // qmk firmware側でmodifier keyが配列で定義されていたりするようであれば
 // 種別ベースなどで選択するのもありかもしれない。
 const uint16_t leave_ime_on_keys[] = {
+  // https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes_basic#letters-and-numbers
   KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
-  KC_GRAVE,
+  KC_ESCAPE
   // KC_MINUS,
   KC_EQUAL,
   KC_LBRACKET,
@@ -59,16 +60,17 @@ const uint16_t leave_ime_on_keys[] = {
   KC_BSLASH,
   KC_SCOLON,
   KC_QUOTE,
+  KC_GRAVE,
   // KC_COMMA,
   // KC_DOT,
   KC_SLASH,
-  KC_ESCAPE
 };
 const int length_of_leave_ime_on_keys = sizeof leave_ime_on_keys / sizeof leave_ime_on_keys[0];
 
 const uint16_t leave_ime_on_keys_with_shift[] = {
+  // https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes_basic#letters-and-numbers
   KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
-  KC_GRAVE,
+  KC_ESCAPE
   KC_MINUS,
   KC_EQUAL,
   KC_LBRACKET,
@@ -76,10 +78,10 @@ const uint16_t leave_ime_on_keys_with_shift[] = {
   KC_BSLASH,
   KC_SCOLON,
   KC_QUOTE,
+  KC_GRAVE,
   KC_COMMA,
   KC_DOT,
   KC_SLASH,
-  KC_ESCAPE
 };
 const int length_of_leave_ime_on_keys_with_shift =
    sizeof leave_ime_on_keys_with_shift / sizeof leave_ime_on_keys_with_shift[0];
