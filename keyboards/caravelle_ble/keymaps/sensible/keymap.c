@@ -112,11 +112,11 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT ( \
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-    _______, AD_WO_L, ADV_ID1, ADV_ID2, ADV_ID3, ADV_ID4,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, RESET,   DF(0),   DF(1),   ENT_DFU, ENT_SLP,                          BATT_LV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    _______, DELBNDS, DEL_ID1, DEL_ID2, DEL_ID3, DEL_ID4, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, AD_WO_L, ADV_ID0, ADV_ID1, ADV_ID2, ADV_ID3, XXXXXXX,        XXXXXXX, XXXXXXX, KC_LANG5,KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-    _______, BATT_LV, ENT_SLP, ENT_DFU, RESET,   XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, DELBNDS, DEL_ID0, DEL_ID1, DEL_ID2, DEL_ID3, XXXXXXX,        XXXXXXX, XXXXXXX, KC_CAPS, KC_INS,  KC_KANA, KC_APP,  _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
                                XXXXXXX, _______, _______, _______,        _______, _______, _______, XXXXXXX \
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
