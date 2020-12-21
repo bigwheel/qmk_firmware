@@ -39,8 +39,7 @@ enum custom_keycodes {
     DEL_ID4,              /* Delete bonding of PeerID 4           */
     ENT_DFU,              /* Start bootloader                     */
     ENT_SLP,              /* Deep sleep mode                      */
-    LOWER,                /* Layer  keycode                       */
-    RAISE,                /* Layer  keycode                       */
+    KC_DISPEL,
 };
 
 
@@ -90,7 +89,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,        XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, \
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,        XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_DISPEL, XXXXXXX, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
     _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,        XXXXXXX, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
@@ -102,7 +101,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
     KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    _______, KC_GRV,  KC_MINS, KC_EQL,  KC_SCLN, KC_QUOT, XXXXXXX,        XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, _______, \
+    _______, KC_GRV,  KC_MINS, KC_EQL,  KC_SCLN, KC_QUOT, XXXXXXX,        XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_DISPEL, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
     _______, KC_LBRC, KC_RBRC, KC_BSLS, KC_COMM, KC_DOT,  XXXXXXX,        XXXXXXX, KC_SLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
@@ -125,28 +124,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   char str[16];
-  switch (keycode) {
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-  }
   if (record->event.pressed) {
     switch (keycode) {
     case DELBNDS:
