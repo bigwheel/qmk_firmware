@@ -21,13 +21,13 @@
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  DISPEL = BMP_SAFE_RANGE, // 記号を押したときのIME無効化の挙動を打ち消す
+  CUSTOM_KEYCODE_START = BMP_SAFE_RANGE,
 };
 
 const key_string_map_t custom_keys_user = {
-  .start_kc = DISPEL,
-  .end_kc = DISPEL,
-  .key_strings = "DISPEL\0"
+  .start_kc = CUSTOM_KEYCODE_START,
+  .end_kc= CUSTOM_KEYCODE_START,
+  .key_strings = "\0"
 };
 
 // デフォルトのキーマップでこれを使用することはほぼないが、一応残しておく
@@ -41,7 +41,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint32_t keymaps_len() {
-  return 23;
+  return sizeof(keymaps)/sizeof(uint16_t);
 }
 
 // sensibleキーマップは統一してレイヤー0をPC用キーマップ、レイヤー1をMac用キーマップにしている
@@ -74,14 +74,6 @@ void off_ime() {
   }
 }
 
-void matrix_scan_user(void) {
-  if (ime_is_disabled_automatically == false)
-    if (timer_elapsed(last_key_record_time) > IME_DISABLED_TIME) {
-      off_ime();
-      ime_is_disabled_automatically = true;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   last_key_record_time = timer_read();
   ime_is_disabled_automatically = false;
@@ -90,4 +82,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return PROCESS_OVERRIDE_BEHAVIOR;
 
   return PROCESS_USUAL_BEHAVIOR;
+}
+
+void matrix_init_user(void) {
+
+}
+
+void matrix_scan_user(void) {
+  if (ime_is_disabled_automatically == false)
+    if (timer_elapsed(last_key_record_time) > IME_DISABLED_TIME) {
+      off_ime();
+      ime_is_disabled_automatically = true;
+    }
+}
+
+void led_set_user(uint8_t usb_led) {
+
 }
