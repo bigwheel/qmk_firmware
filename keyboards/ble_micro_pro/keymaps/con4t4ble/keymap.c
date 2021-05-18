@@ -49,8 +49,6 @@ enum layers {
 #define PROCESS_OVERRIDE_BEHAVIOR (false)
 #define PROCESS_USUAL_BEHAVIOR (true)
 
-bool dispel_is_pressing = false;
-
 // 参考元:
 // https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_macros#super-alt-tab
 bool     ime_is_disabled_automatically = false;
