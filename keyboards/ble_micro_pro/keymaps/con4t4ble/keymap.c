@@ -21,23 +21,19 @@
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  CUSTOM_KEYCODE_START = BMP_SAFE_RANGE,
+    CUSTOM_KEYCODE_START = BMP_SAFE_RANGE,
 };
 
 const key_string_map_t custom_keys_user = {
-  .start_kc = CUSTOM_KEYCODE_START,
-  .end_kc= CUSTOM_KEYCODE_START,
-  .key_strings = "\0"
+    .start_kc    = CUSTOM_KEYCODE_START,
+    .end_kc      = CUSTOM_KEYCODE_START,
+    .key_strings = "\0"
 };
 
 // デフォルトのキーマップでこれを使用することはほぼないが、一応残しておく
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    {{
-    KC_D, KC_E, KC_F, KC_A, KC_U, KC_L, KC_T,
-        KC_K, KC_E, KC_Y, KC_M, KC_A, KC_P,
-        KC_B, KC_Y,
-        KC_F, KC_I, KC_R, KC_M, KC_W, KC_A, KC_R, KC_E
-    }}
+    {{KC_D, KC_E, KC_F, KC_A, KC_U, KC_L, KC_T, KC_K, KC_E, KC_Y, KC_M, KC_A,
+      KC_P, KC_B, KC_Y, KC_F, KC_I, KC_R, KC_M, KC_W, KC_A, KC_R, KC_E}}
 };
 
 uint32_t keymaps_len() {
@@ -46,56 +42,55 @@ uint32_t keymaps_len() {
 
 // sensibleキーマップは統一してレイヤー0をPC用キーマップ、レイヤー1をMac用キーマップにしている
 enum layers {
-  LAYER_PC,
-  LAYER_MAC
+    LAYER_PC,
+    LAYER_MAC
 };
 
-#define PROCESS_OVERRIDE_BEHAVIOR   (false)
-#define PROCESS_USUAL_BEHAVIOR      (true)
+#define PROCESS_OVERRIDE_BEHAVIOR (false)
+#define PROCESS_USUAL_BEHAVIOR (true)
 
 bool dispel_is_pressing = false;
 
-// 参考元: https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_macros#super-alt-tab
-bool ime_is_disabled_automatically = false;
-uint16_t last_key_record_time = 0;
+// 参考元:
+// https://beta.docs.qmk.fm/using-qmk/advanced-keycodes/feature_macros#super-alt-tab
+bool     ime_is_disabled_automatically = false;
+uint16_t last_key_record_time          = 0;
 #define IME_DISABLED_TIME 10000
 
 // デフォルトレイヤーに合わせて日本語入力をOFFにする
 void off_ime() {
-  switch (biton32(default_layer_state)) {
-    case LAYER_PC:
-      tap_code(KC_MHEN);
-      break;
-    case LAYER_MAC:
-      tap_code(KC_LANG2);
-      break;
-    default:
-      SEND_STRING("ILLEGAL STATE!");
-  }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  last_key_record_time = timer_read();
-  ime_is_disabled_automatically = false;
-
-  if (process_record_user_bmp(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
-    return PROCESS_OVERRIDE_BEHAVIOR;
-
-  return PROCESS_USUAL_BEHAVIOR;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-  if (ime_is_disabled_automatically == false)
-    if (timer_elapsed(last_key_record_time) > IME_DISABLED_TIME) {
-      off_ime();
-      ime_is_disabled_automatically = true;
+    switch (biton32(default_layer_state)) {
+        case LAYER_PC:
+            tap_code(KC_MHEN);
+            break;
+        case LAYER_MAC:
+            tap_code(KC_LANG2);
+            break;
+        default:
+            SEND_STRING("ILLEGAL STATE!");
     }
 }
 
-void led_set_user(uint8_t usb_led) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    last_key_record_time          = timer_read();
+    ime_is_disabled_automatically = false;
 
+    if (process_record_user_bmp(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
+        return PROCESS_OVERRIDE_BEHAVIOR;
+
+    return PROCESS_USUAL_BEHAVIOR;
+}
+
+void matrix_init_user(void) {
+}
+
+void matrix_scan_user(void) {
+    if (ime_is_disabled_automatically == false)
+        if (timer_elapsed(last_key_record_time) > IME_DISABLED_TIME) {
+            off_ime();
+            ime_is_disabled_automatically = true;
+        }
+}
+
+void led_set_user(uint8_t usb_led) {
 }
