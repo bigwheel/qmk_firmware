@@ -20,16 +20,17 @@
 #include <stdbool.h>
 
 #include "./auto_disable_ime.h"
+#include "./jtu_custom_keycodes.h"
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    CUSTOM_KEYCODE_START = BMP_SAFE_RANGE,
+    CUSTOM_KEYCODE_START = JTU_SAFE_RANGE,
 };
 
 const key_string_map_t custom_keys_user = {
-    .start_kc    = CUSTOM_KEYCODE_START,
-    .end_kc      = CUSTOM_KEYCODE_START,
-    .key_strings = "\0"
+    .start_kc    = JTU_START_KC,
+    .end_kc      = JTU_END_KC,
+    .key_strings = JTU_KEY_STRINGS
 };
 
 // デフォルトのキーマップでこれを使用することはほぼないが、一応残しておく
@@ -49,6 +50,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_record_user_auto_disable_ime();
 
     if (process_record_user_bmp(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
+        return PROCESS_OVERRIDE_BEHAVIOR;
+
+    if (process_record_user_jtu(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
         return PROCESS_OVERRIDE_BEHAVIOR;
 
     return PROCESS_USUAL_BEHAVIOR;
