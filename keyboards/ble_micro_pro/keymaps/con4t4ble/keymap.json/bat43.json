@@ -180,7 +180,7 @@
       "KC_NO",
       "KC_TRNS",
       "KC_TRNS",
-      "KC_NO",
+      "ANY(JU_LBRC)",
       "ANY(JU_RBRC)",
       "ANY(JU_BSLS)",
       "KC_COMM",
