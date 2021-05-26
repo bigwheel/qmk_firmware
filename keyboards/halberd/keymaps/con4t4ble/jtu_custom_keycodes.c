@@ -1,6 +1,20 @@
 #include QMK_KEYBOARD_H
 #include "jtu_custom_keycodes.h"
 
+typedef struct {
+    uint16_t keycode;
+    bool shift;
+} keycode_with_shift;
+
+typedef struct {
+    uint16_t original_keycode;
+    keycode_with_shift without_shift;
+    keycode_with_shift with_shift;
+} keycode_mapping;
+
+//keycode_mapping kms[] = {};
+
+
 bool process_record_user_jtu(uint16_t keycode, keyrecord_t *record) {
   static bool lshift = false;
   static bool rshift = false;
