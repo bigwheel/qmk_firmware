@@ -12,7 +12,9 @@ typedef struct {
     keycode_with_shift with_shift;
 } keycode_mapping;
 
-//keycode_mapping kms[] = {};
+keycode_mapping kms[] = {
+    { JU_2, { KC_2, false }, { KC_LBRC, false } }
+};
 
 
 bool process_record_user_jtu(uint16_t keycode, keyrecord_t *record) {
