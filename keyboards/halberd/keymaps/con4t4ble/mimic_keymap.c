@@ -26,6 +26,29 @@ keycode_mapping kms[] = {
     { KC_SCLN, KC_SCLN, JP_COLN },
     { KC_QUOT, JP_QUOT, JP_DQUO },
     { KC_GRV,  JP_GRV,  JP_TILD },
+    // モディファイア情報付きキーコード系
+    // https://docs.qmk.fm/#/ja/keycodes_us_ansi_shifted
+    { KC_TILD, JP_TILD, JP_TILD },
+    { KC_EXLM, JP_EXLM, JP_EXLM },
+    { KC_AT  , JP_AT,   JP_AT   },
+    { KC_HASH, JP_HASH, JP_HASH },
+    { KC_DLR,  JP_DLR,  JP_DLR  },
+    { KC_PERC, JP_PERC, JP_PERC },
+    { KC_CIRC, JP_CIRC, JP_CIRC },
+    { KC_AMPR, JP_AMPR, JP_AMPR },
+    { KC_ASTR, JP_ASTR, JP_ASTR },
+    { KC_LPRN, JP_LPRN, JP_LPRN },
+    { KC_RPRN, JP_RPRN, JP_RPRN },
+    { KC_UNDS, JP_UNDS, JP_UNDS },
+    { KC_PLUS, JP_PLUS, JP_PLUS },
+    { KC_LCBR, JP_LCBR, JP_LCBR },
+    { KC_RCBR, JP_RCBR, JP_RCBR },
+    { KC_PIPE, JP_PIPE, JP_PIPE },
+    { KC_COLN, JP_COLN, JP_COLN },
+    { KC_DQUO, JP_DQUO, JP_DQUO },
+    { KC_LABK, JP_LABK, JP_LABK },
+    { KC_RABK, JP_RABK, JP_RABK },
+    { KC_QUES, JP_QUES, JP_QUES },
 };
 
 // 押したときのShiftの状態を保存しておく。
@@ -39,17 +62,6 @@ keycode_mapping kms[] = {
 // 以下はそれを回避するための、最後にキーを入力したときの
 // Shiftの状態を保存するための配列
 bool pressed_with_shifts[sizeof kms / sizeof kms[0]];
-
-uint16_t kms2[][2] = {
-    { KC_AT  , JP_AT   },
-    { KC_CIRC, JP_CIRC },
-    { KC_AMPR, JP_AMPR },
-    { KC_ASTR, JP_ASTR },
-    { KC_LPRN, JP_LPRN },
-    { KC_RPRN, JP_RPRN },
-    // TODO これ以外もあるはず。ただしshiftなしの入力に変化する場合はそこそこ工夫が必要かも
-    // { KC_AT, JP_AT },
-};
 
 bool shift_is_pressing(void) {
     return get_mods() & MOD_MASK_SHIFT;
@@ -82,17 +94,6 @@ bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
     for (int i = 0; i < sizeof pressed_with_shifts / sizeof pressed_with_shifts[0]; i++)
         uprintf("%b", pressed_with_shifts[i]);
     uprintf("\n");
-
-    for (int i = 0; i < sizeof kms2 / sizeof kms2[0]; i++)
-        if (kms2[i][0] == keycode) {
-            uprintf("%d\n", i);
-            // TODO shift押しながらだとこちらもうまく動かない
-            if (record->event.pressed)
-                register_code16(kms2[i][1]);
-            else
-                unregister_code16(kms2[i][1]);
-            return PROCESS_OVERRIDE_BEHAVIOR;
-        }
 
   // https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
     for (int i = 0; i < sizeof kms / sizeof kms[0]; i++)
