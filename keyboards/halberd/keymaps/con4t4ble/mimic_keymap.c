@@ -33,6 +33,18 @@ keycode_mapping kms[] = {
     { KC_GRV,  { KC_LBRC, true },  { KC_EQL,  true }  },
 };
 
+// 押したときのShiftの状態を保存しておく。
+// mimic keymapではShiftが押された状態でそのキーを押した場合と
+// Shiftが押されていない状態でそのキーを押した場合では
+// キーコードが異なってくるため、
+// Shift押す → ;押す → Shift離す → ;離す
+// とすると
+// Shift押す → ;押す(:が押される) → Shift離す → ;離す(;が離される)
+// となり:が押された状態で残ってしまう。
+// 以下はそれを回避するための、最後にキーを入力したときの
+// Shiftの状態を保存するための配列
+bool pressed_with_shifts[sizeof kms / sizeof kms[0]];
+
 uint16_t kms2[][2] = {
     { KC_AT  , JP_AT   },
     { KC_AMPR, JP_AMPR },
@@ -47,16 +59,17 @@ bool shift_is_pressing(void) {
     return get_mods() & MOD_MASK_SHIFT;
 }
 
-void process_pseudo_key(keyrecord_t* record, keycode_mapping* km) {
-    keycode_with_shift kws;
-    if (shift_is_pressing())
-        kws = km->with_shift;
-    else
-        kws = km->without_shift;
-
+void process_pseudo_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_with_shift) {
     if (record->event.pressed) {
         uint8_t mod_state = get_mods();
         {
+            keycode_with_shift kws;
+            if (shift_is_pressing())
+                kws = km->with_shift;
+            else
+                kws = km->without_shift;
+            *pressed_with_shift = shift_is_pressing();
+
             if (kws.shift)
                 add_mods(MOD_MASK_SHIFT);
             else
@@ -65,12 +78,22 @@ void process_pseudo_key(keyrecord_t* record, keycode_mapping* km) {
         }
         set_mods(mod_state);
     } else {
-        // TODO shiftを先に話すとだめなバグがある
+        keycode_with_shift kws;
+        if (*pressed_with_shift)
+            kws = km->with_shift;
+        else
+            kws = km->without_shift;
+        uprintf("%d\n", kws.keycode);
+
         unregister_code(kws.keycode);
     }
 }
 
 bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
+    for (int i = 0; i < sizeof pressed_with_shifts / sizeof pressed_with_shifts[0]; i++)
+        uprintf("%b", pressed_with_shifts[i]);
+    uprintf("\n");
+
     for (int i = 0; i < sizeof kms2 / sizeof kms2[0]; i++)
         if (kms2[i][0] == keycode) {
             // TODO shift押しながらだとこちらもうまく動かない
@@ -84,7 +107,7 @@ bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
   // https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
     for (int i = 0; i < sizeof kms / sizeof kms[0]; i++)
         if (kms[i].original_keycode == keycode) {
-            process_pseudo_key(record, &kms[i]);
+            process_pseudo_key(record, &kms[i], &pressed_with_shifts[i]);
             return PROCESS_OVERRIDE_BEHAVIOR;
         }
 
