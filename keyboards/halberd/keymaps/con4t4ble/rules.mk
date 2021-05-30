@@ -1,1 +1,1 @@
-SRC += jtu_custom_keycodes.c
+SRC += mimic_keymap.c
