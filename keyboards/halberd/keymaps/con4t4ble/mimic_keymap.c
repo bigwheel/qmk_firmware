@@ -67,7 +67,7 @@ bool shift_is_pressing(void) {
     return get_mods() & MOD_MASK_SHIFT;
 }
 
-void process_pseudo_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_with_shift) {
+void process_mimic_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_with_shift) {
     uint8_t mod_state = get_mods();
 
     if (record->event.pressed) {
@@ -98,7 +98,7 @@ bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
   // https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
     for (int i = 0; i < sizeof kms / sizeof kms[0]; i++)
         if (kms[i].original_keycode == keycode) {
-            process_pseudo_key(record, &kms[i], &pressed_with_shifts[i]);
+            process_mimic_key(record, &kms[i], &pressed_with_shifts[i]);
             return PROCESS_OVERRIDE_BEHAVIOR;
         }
 
