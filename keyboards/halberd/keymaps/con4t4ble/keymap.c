@@ -14,20 +14,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define PROCESS_OVERRIDE_BEHAVIOR   (false)
 #define PROCESS_USUAL_BEHAVIOR      (true)
 
-const uint16_t PROGMEM combo_inputs[COMBO_COUNT][3] = {
-    { KC_J, KC_K, COMBO_END },
-    { KC_ESC, KC_Q, COMBO_END },
-};
-
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo_inputs[0], KC_BSPC),
-    COMBO(combo_inputs[1], KC_TAB),
-    // マクロのせいか複合リテラルが使えない
-    // 以下はコンパイルが通るものの解釈がうまく行っていないのか
-    // 結局動かない
-    // COMBO(((uint16_t [3]){ KC_ESC, KC_Q, COMBO_END }), KC_TAB)
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_user_jtu(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
         return PROCESS_OVERRIDE_BEHAVIOR;
