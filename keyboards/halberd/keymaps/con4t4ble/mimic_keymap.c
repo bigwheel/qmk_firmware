@@ -83,17 +83,12 @@ void process_pseudo_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_
             kws = km->with_shift;
         else
             kws = km->without_shift;
-        uprintf("%d\n", kws.keycode);
 
         unregister_code(kws.keycode);
     }
 }
 
 bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
-    for (int i = 0; i < sizeof pressed_with_shifts / sizeof pressed_with_shifts[0]; i++)
-        uprintf("%b", pressed_with_shifts[i]);
-    uprintf("\n");
-
     for (int i = 0; i < sizeof kms2 / sizeof kms2[0]; i++)
         if (kms2[i][0] == keycode) {
             // TODO shift押しながらだとこちらもうまく動かない
