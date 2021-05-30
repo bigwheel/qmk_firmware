@@ -14,6 +14,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define PROCESS_OVERRIDE_BEHAVIOR   (false)
 #define PROCESS_USUAL_BEHAVIOR      (true)
 
+const uint16_t PROGMEM test_combo[] = {KC_J, KC_K, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_BSPC)};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_user_jtu(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
         return PROCESS_OVERRIDE_BEHAVIOR;
