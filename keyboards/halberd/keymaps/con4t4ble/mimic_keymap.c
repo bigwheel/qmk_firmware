@@ -6,31 +6,26 @@
 #define PROCESS_USUAL_BEHAVIOR      (true)
 
 typedef struct {
-    uint16_t keycode;
-    bool shift;
-} keycode_with_shift;
-
-typedef struct {
     uint16_t original_keycode;
-    keycode_with_shift without_shift;
-    keycode_with_shift with_shift;
+    uint16_t without_shift;
+    uint16_t with_shift;
 } keycode_mapping;
 
 keycode_mapping kms[] = {
-    { KC_2,    { KC_2,    false }, { KC_LBRC, false } },
-    { KC_6,    { KC_6,    false }, { KC_EQL,  false } },
-    { KC_7,    { KC_7,    false }, { KC_6,    true }  },
-    { KC_8,    { KC_8,    false }, { KC_QUOT, true }  },
-    { KC_9,    { KC_9,    false }, { KC_8,    true }  },
-    { KC_0,    { KC_0,    false }, { KC_9,    true }  },
-    { KC_MINS, { KC_MINS, false }, { KC_INT1, true }  },
-    { KC_EQL,  { KC_MINS, true },  { KC_SCLN, true }  },
-    { KC_LBRC, { KC_RBRC, false }, { KC_RBRC, true }  },
-    { KC_RBRC, { KC_NUHS, false }, { KC_NUHS, true }  },
-    { KC_BSLS, { KC_INT1, false }, { KC_INT3, true }  },
-    { KC_SCLN, { KC_SCLN, false }, { KC_QUOT, false } },
-    { KC_QUOT, { KC_7,    true },  { KC_2,    true }  },
-    { KC_GRV,  { KC_LBRC, true },  { KC_EQL,  true }  },
+    { KC_2,    KC_2,    JP_AT   },
+    { KC_6,    KC_6,    JP_CIRC },
+    { KC_7,    KC_7,    JP_AMPR },
+    { KC_8,    KC_8,    JP_ASTR },
+    { KC_9,    KC_9,    JP_LPRN },
+    { KC_0,    KC_0,    JP_RPRN },
+    { KC_MINS, KC_MINS, JP_UNDS },
+    { KC_EQL,  JP_EQL,  JP_PLUS },
+    { KC_LBRC, JP_LBRC, JP_LCBR },
+    { KC_RBRC, JP_RBRC, JP_RCBR },
+    { KC_BSLS, JP_BSLS, JP_PIPE },
+    { KC_SCLN, KC_SCLN, JP_COLN },
+    { KC_QUOT, JP_QUOT, JP_DQUO },
+    { KC_GRV,  JP_GRV,  JP_TILD },
 };
 
 // 押したときのShiftの状態を保存しておく。
@@ -61,33 +56,26 @@ bool shift_is_pressing(void) {
 }
 
 void process_pseudo_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_with_shift) {
+    uint8_t mod_state = get_mods();
+
     if (record->event.pressed) {
-        uint8_t mod_state = get_mods();
-        {
-            keycode_with_shift kws;
-            if (shift_is_pressing())
-                kws = km->with_shift;
-            else
-                kws = km->without_shift;
-            *pressed_with_shift = shift_is_pressing();
+        *pressed_with_shift = shift_is_pressing();
 
-            if (kws.shift)
-                add_mods(MOD_MASK_SHIFT);
-            else
-                del_mods(MOD_MASK_SHIFT);
-            register_code(kws.keycode);
-        }
-        set_mods(mod_state);
-    } else {
-        keycode_with_shift kws;
+        del_mods(MOD_MASK_SHIFT);
+        // 下記キーコードがShift状態を保持しているので、
+        // Shift状態がちゃんと反映されるように↑で一旦剥がしている
         if (*pressed_with_shift)
-            kws = km->with_shift;
+            register_code16(km->with_shift);
         else
-            kws = km->without_shift;
-        uprintf("%d\n", kws.keycode);
-
-        unregister_code(kws.keycode);
+            register_code16(km->without_shift);
+    } else {
+        if (*pressed_with_shift)
+            unregister_code16(km->with_shift);
+        else
+            unregister_code16(km->without_shift);
     }
+
+    set_mods(mod_state);
 }
 
 bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
