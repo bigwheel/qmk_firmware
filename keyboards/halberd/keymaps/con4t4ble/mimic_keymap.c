@@ -47,6 +47,7 @@ bool pressed_with_shifts[sizeof kms / sizeof kms[0]];
 
 uint16_t kms2[][2] = {
     { KC_AT  , JP_AT   },
+    { KC_CIRC, JP_CIRC },
     { KC_AMPR, JP_AMPR },
     { KC_ASTR, JP_ASTR },
     { KC_LPRN, JP_LPRN },
@@ -96,11 +97,12 @@ bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
 
     for (int i = 0; i < sizeof kms2 / sizeof kms2[0]; i++)
         if (kms2[i][0] == keycode) {
+            uprintf("%d\n", i);
             // TODO shift押しながらだとこちらもうまく動かない
             if (record->event.pressed)
-                register_code(kms2[i][1]);
+                register_code16(kms2[i][1]);
             else
-                unregister_code(kms2[i][1]);
+                unregister_code16(kms2[i][1]);
             return PROCESS_OVERRIDE_BEHAVIOR;
         }
 
