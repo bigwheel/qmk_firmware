@@ -70,7 +70,7 @@ void process_pseudo_key(keyrecord_t* record, keycode_mapping* km) {
     }
 }
 
-bool process_record_user_jtu(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
     for (int i = 0; i < sizeof kms2 / sizeof kms2[0]; i++)
         if (kms2[i][0] == keycode) {
             // TODO shift押しながらだとこちらもうまく動かない

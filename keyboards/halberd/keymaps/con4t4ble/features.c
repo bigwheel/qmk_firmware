@@ -5,7 +5,7 @@
 #define PROCESS_USUAL_BEHAVIOR      (true)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (process_record_user_jtu(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
+    if (process_record_user_mimic(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
         return PROCESS_OVERRIDE_BEHAVIOR;
     else
         return PROCESS_USUAL_BEHAVIOR;
