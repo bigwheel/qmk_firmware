@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "jtu_custom_keycodes.h"
+#include "keymap_jp.h"
 
 #define PROCESS_OVERRIDE_BEHAVIOR   (false)
 #define PROCESS_USUAL_BEHAVIOR      (true)
@@ -32,45 +33,60 @@ keycode_mapping kms[] = {
     { KC_GRV,  { KC_LBRC, true },  { KC_EQL,  true }  },
 };
 
-// すべてfalse(0)で初期化されることを期待しているけど
-// 明示的に初期化するべきかも？
-bool pressed[sizeof kms / sizeof kms[0]];
+uint16_t kms2[][2] = {
+    { KC_AT  , JP_AT   },
+    { KC_AMPR, JP_AMPR },
+    { KC_ASTR, JP_ASTR },
+    { KC_LPRN, JP_LPRN },
+    { KC_RPRN, JP_RPRN },
+    // TODO これ以外もあるはず。ただしshiftなしの入力に変化する場合はそこそこ工夫が必要かも
+    // { KC_AT, JP_AT },
+};
 
 bool shift_is_pressing(void) {
     return get_mods() & MOD_MASK_SHIFT;
 }
 
-bool process_pseudo_key(keyrecord_t* record, keycode_mapping* km, bool* pressed) {
+void process_pseudo_key(keyrecord_t* record, keycode_mapping* km) {
+    keycode_with_shift kws;
+    if (shift_is_pressing())
+        kws = km->with_shift;
+    else
+        kws = km->without_shift;
+
     if (record->event.pressed) {
-        if (shift_is_pressing()) {
-            uint8_t mod_state = get_mods();
-
-            del_mods(MOD_MASK_SHIFT);
-            register_code(KC_DEL);
-            *pressed = true;
-
-            set_mods(mod_state);
-            return PROCESS_OVERRIDE_BEHAVIOR;
+        uint8_t mod_state = get_mods();
+        {
+            if (kws.shift)
+                add_mods(MOD_MASK_SHIFT);
+            else
+                del_mods(MOD_MASK_SHIFT);
+            register_code(kws.keycode);
         }
+        set_mods(mod_state);
     } else {
-        if (*pressed) {
-
-
-            unregister_code(KC_DEL);
-
-            *pressed = false;
-            return PROCESS_OVERRIDE_BEHAVIOR;
-        }
+        // TODO shiftを先に話すとだめなバグがある
+        unregister_code(kws.keycode);
     }
-    return PROCESS_USUAL_BEHAVIOR;
 }
 
 bool process_record_user_jtu(uint16_t keycode, keyrecord_t *record) {
+    for (int i = 0; i < sizeof kms2 / sizeof kms2[0]; i++)
+        if (kms2[i][0] == keycode) {
+            // TODO shift押しながらだとこちらもうまく動かない
+            if (record->event.pressed)
+                register_code(kms2[i][1]);
+            else
+                unregister_code(kms2[i][1]);
+            return PROCESS_OVERRIDE_BEHAVIOR;
+        }
+
   // https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
     for (int i = 0; i < sizeof kms / sizeof kms[0]; i++)
-        if (kms[i].original_keycode == keycode)
-            return true;
-            // return process_pseudo_key(record, &kms[i], &pressed[i]);
+        if (kms[i].original_keycode == keycode) {
+            process_pseudo_key(record, &kms[i]);
+            return PROCESS_OVERRIDE_BEHAVIOR;
+        }
 
     return PROCESS_USUAL_BEHAVIOR;
 }
