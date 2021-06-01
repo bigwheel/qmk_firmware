@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "mimic_keymap.h"
 #include "auto_disable_ime.h"
+#include "auto_disable_ime_timer.h"
 
 #define PROCESS_OVERRIDE_BEHAVIOR   (false)
 #define PROCESS_USUAL_BEHAVIOR      (true)
@@ -10,6 +11,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 #endif
 
+    process_record_user_auto_disable_ime_timer();
     /*
     if (process_record_user_auto_disable_ime(keycode, record) == PROCESS_OVERRIDE_BEHAVIOR)
         return PROCESS_OVERRIDE_BEHAVIOR;
@@ -21,6 +23,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return PROCESS_OVERRIDE_BEHAVIOR;
     else
         return PROCESS_USUAL_BEHAVIOR;
+}
+
+void matrix_scan_user(void) {
+    matrix_scan_user_auto_disable_ime_timer();
 }
 
 void keyboard_post_init_user(void) {
