@@ -1,6 +1,7 @@
 #include "auto_disable_ime.h"
 
 #include QMK_KEYBOARD_H
+#include "disable_ime.h"
 
 enum custom_keycodes {
   KC_DISPEL = SAFE_RANGE, // 記号を押したときのIME無効化の挙動を打ち消す
@@ -121,12 +122,6 @@ const uint16_t leave_ime_on_keys_with_shift[] = {
 const int length_of_leave_ime_on_keys_with_shift =
    sizeof leave_ime_on_keys_with_shift / sizeof leave_ime_on_keys_with_shift[0];
 
-// sensibleキーマップは統一してレイヤー0をPC用キーマップ、レイヤー1をMac用キーマップにしている
-enum layers {
-  LAYER_PC,
-  LAYER_MAC
-};
-
 #define PROCESS_OVERRIDE_BEHAVIOR   (false)
 #define PROCESS_USUAL_BEHAVIOR      (true)
 
@@ -137,24 +132,10 @@ bool ime_is_disabled_automatically = false;
 uint16_t last_key_record_time = 0;
 #define IME_DISABLED_TIME 10000
 
-// デフォルトレイヤーに合わせて日本語入力をOFFにする
-void off_ime(void) {
-  switch (biton32(default_layer_state)) {
-    case LAYER_PC:
-      tap_code(KC_MHEN);
-      break;
-    case LAYER_MAC:
-      tap_code(KC_LANG2);
-      break;
-    default:
-      SEND_STRING("ILLEGAL STATE!");
-  }
-}
-
 void matrix_scan_user(void) {
   if (ime_is_disabled_automatically == false)
     if (timer_elapsed(last_key_record_time) > IME_DISABLED_TIME) {
-      off_ime();
+      disable_ime();
       ime_is_disabled_automatically = true;
     }
 }
@@ -186,7 +167,7 @@ bool process_record_user_auto_disable_ime(uint16_t keycode, keyrecord_t *record)
     if (leave_ime_on && record->event.pressed) {
       uint8_t real_mods_memory = get_mods();
       clear_mods();
-      off_ime();
+      disable_ime();
       set_mods(real_mods_memory);
     }
   }
