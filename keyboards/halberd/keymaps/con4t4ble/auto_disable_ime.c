@@ -1,3 +1,5 @@
+#include "auto_disable_ime.h"
+
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
