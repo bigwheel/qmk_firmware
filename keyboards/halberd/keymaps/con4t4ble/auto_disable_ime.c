@@ -18,6 +18,9 @@ bool exist_in_array(uint16_t elem, const uint16_t* elems, int size) {
     return false;
 }
 
+/*
+ * 条件に当てはまるキー入力だったらIMEを無効化するキーをtapする
+ */
 bool process_record_user_auto_disable_ime(uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_DISPEL) {
         dispel_is_pressing = record->event.pressed;
@@ -26,9 +29,9 @@ bool process_record_user_auto_disable_ime(uint16_t keycode, keyrecord_t *record)
 
     if (record->event.pressed && !dispel_is_pressing)
         if (
-                exist_in_array(keycode, disabling_ime_keys, length_of_disabling_ime_keys)
+                (get_mods() & MOD_MASK_CSAG)
                 ||
-                ((get_mods() & MOD_MASK_SHIFT) && exist_in_array(keycode, disabling_ime_keys_with_shift, length_of_disabling_ime_keys_with_shift))
+                exist_in_array(keycode, disabling_ime_keys, length_of_disabling_ime_keys)
            ) {
             uint8_t real_mods_memory = get_mods();
             clear_mods();
