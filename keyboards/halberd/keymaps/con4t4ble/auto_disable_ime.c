@@ -1,15 +1,13 @@
 #include "auto_disable_ime.h"
 
 #include QMK_KEYBOARD_H
+#include "util.h"
 #include "disable_ime.h"
 #include "auto_disable_ime_keys.h"
 
 enum custom_keycodes {
   KC_DISPEL = SAFE_RANGE, // 記号を押したときのIME無効化の挙動を打ち消す
 };
-
-#define PROCESS_OVERRIDE_BEHAVIOR   (false)
-#define PROCESS_USUAL_BEHAVIOR      (true)
 
 bool dispel_is_pressing = false;
 
