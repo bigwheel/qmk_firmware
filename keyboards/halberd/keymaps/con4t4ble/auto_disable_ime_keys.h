@@ -46,4 +46,3 @@ const uint16_t disabling_ime_keys[] = {
     KC_RIGHT_ANGLE_BRACKET,
     KC_QUESTION
 };
-const int length_of_disabling_ime_keys = sizeof disabling_ime_keys / sizeof disabling_ime_keys[0];
