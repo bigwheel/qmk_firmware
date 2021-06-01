@@ -1,5 +1,6 @@
-#include QMK_KEYBOARD_H
 #include "mimic_keymap.h"
+
+#include QMK_KEYBOARD_H
 #include "keymap_jp.h"
 
 #define PROCESS_OVERRIDE_BEHAVIOR   (false)
