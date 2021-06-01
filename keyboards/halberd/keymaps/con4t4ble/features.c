@@ -1,10 +1,8 @@
 #include QMK_KEYBOARD_H
+#include "util.h"
 #include "mimic_keymap.h"
 #include "auto_disable_ime.h"
 #include "auto_disable_ime_timer.h"
-
-#define PROCESS_OVERRIDE_BEHAVIOR   (false)
-#define PROCESS_USUAL_BEHAVIOR      (true)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
