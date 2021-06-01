@@ -1,10 +1,8 @@
 #include "mimic_keymap.h"
 
 #include QMK_KEYBOARD_H
+#include "util.h"
 #include "keymap_jp.h"
-
-#define PROCESS_OVERRIDE_BEHAVIOR   (false)
-#define PROCESS_USUAL_BEHAVIOR      (true)
 
 typedef struct {
     uint16_t original_keycode;
