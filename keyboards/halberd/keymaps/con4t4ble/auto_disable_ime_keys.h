@@ -7,7 +7,7 @@
 // 結局自分で定義するのが一旦楽という結論になった。
 // qmk firmware側でmodifier keyが配列で定義されていたりするようであれば
 // 種別ベースなどで選択するのもありかもしれない。
-const uint16_t leave_ime_on_keys[] = {
+const uint16_t disabling_ime_keys[] = {
   // https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes_basic#letters-and-numbers
   KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0,
   KC_ESCAPE,
@@ -46,9 +46,9 @@ const uint16_t leave_ime_on_keys[] = {
   KC_RIGHT_ANGLE_BRACKET,
   KC_QUESTION
 };
-const int length_of_leave_ime_on_keys = sizeof leave_ime_on_keys / sizeof leave_ime_on_keys[0];
+const int length_of_disabling_ime_keys = sizeof disabling_ime_keys / sizeof disabling_ime_keys[0];
 
-const uint16_t leave_ime_on_keys_with_shift[] = {
+const uint16_t disabling_ime_keys_with_shift[] = {
   // https://beta.docs.qmk.fm/using-qmk/simple-keycodes/keycodes_basic#letters-and-numbers
   KC_A,
   KC_B,
@@ -114,5 +114,5 @@ const uint16_t leave_ime_on_keys_with_shift[] = {
   KC_RIGHT_ANGLE_BRACKET,
   KC_QUESTION
 };
-const int length_of_leave_ime_on_keys_with_shift =
-   sizeof leave_ime_on_keys_with_shift / sizeof leave_ime_on_keys_with_shift[0];
+const int length_of_disabling_ime_keys_with_shift =
+   sizeof disabling_ime_keys_with_shift / sizeof disabling_ime_keys_with_shift[0];

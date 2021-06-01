@@ -11,6 +11,7 @@ enum custom_keycodes {
 
 bool dispel_is_pressing = false;
 
+// TODO あとで以下のところの処理をこの関数へ置き換える
 bool exist_in_array(uint16_t elem, uint16_t* elems, int size) {
     for (int i = 0; i < size; i++)
         if (elems[i] == elem)
@@ -25,21 +26,21 @@ bool process_record_user_auto_disable_ime(uint16_t keycode, keyrecord_t *record)
     }
 
     if (!dispel_is_pressing) {
-        bool leave_ime_on = false;
-        for (int i = 0; i < length_of_leave_ime_on_keys; i++)
-            if (leave_ime_on_keys[i] == keycode) {
-                leave_ime_on = true;
+        bool disabling_ime = false;
+        for (int i = 0; i < length_of_disabling_ime_keys; i++)
+            if (disabling_ime_keys[i] == keycode) {
+                disabling_ime = true;
                 break;
             }
         // https://www.reddit.com/r/olkb/comments/covpq3/problem_checking_for_modifier_key_on_custom_key/
         if (get_mods() & MOD_MASK_SHIFT)
-            for (int i = 0; i < length_of_leave_ime_on_keys_with_shift; i++)
-                if (leave_ime_on_keys_with_shift[i] == keycode) {
-                    leave_ime_on = true;
+            for (int i = 0; i < length_of_disabling_ime_keys_with_shift; i++)
+                if (disabling_ime_keys_with_shift[i] == keycode) {
+                    disabling_ime = true;
                     break;
                 }
 
-        if (leave_ime_on && record->event.pressed) {
+        if (disabling_ime && record->event.pressed) {
             uint8_t real_mods_memory = get_mods();
             clear_mods();
             disable_ime();
