@@ -32,12 +32,14 @@ bool process_record_user_auto_disable_ime(uint16_t keycode, keyrecord_t *record)
                 (get_mods() & MOD_MASK_CSAG)
                 ||
                 exist_in_array(keycode, disabling_ime_keys, COUNT_OF(disabling_ime_keys))
-           ) {
-            uint8_t real_mods_memory = get_mods();
-            clear_mods();
-            disable_ime();
-            set_mods(real_mods_memory);
-        }
+           )
+            // Shift SpaceだけはIME ONを維持する
+            if (!((get_mods() & MOD_MASK_SHIFT) && keycode == KC_SPC)) {
+                uint8_t real_mods_memory = get_mods();
+                clear_mods();
+                disable_ime();
+                set_mods(real_mods_memory);
+            }
 
     return PROCESS_USUAL_BEHAVIOR;
 }
