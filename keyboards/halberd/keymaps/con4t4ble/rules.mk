@@ -7,5 +7,3 @@ SRC += \
 	   auto_disable_ime_timer.c \
 	   auto_disable_ime.c
 COMBO_ENABLE = yes
-
-CONSOLE_ENABLE = yes
