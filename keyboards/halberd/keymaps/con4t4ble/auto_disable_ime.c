@@ -11,13 +11,6 @@ enum custom_keycodes {
 
 bool dispel_is_pressing = false;
 
-bool exist_in_array(uint16_t elem, const uint16_t* elems, int size) {
-    for (int i = 0; i < size; i++)
-        if (elems[i] == elem)
-            return true;
-    return false;
-}
-
 /*
  * 条件に当てはまるキー入力だったらIMEを無効化するキーをtapする
  */
