@@ -19,11 +19,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
     matrix_scan_user_auto_disable_ime_timer();
 }
-
-void keyboard_post_init_user(void) {
-    // Customise these values to desired behaviour
-    debug_enable=true;
-    //debug_matrix=true;
-    debug_keyboard=true;
-    //debug_mouse=true;
-}
