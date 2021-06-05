@@ -7,6 +7,13 @@
 
 bool dispel_is_pressing = false;
 
+const key_string_map_t custom_keys_user =
+{
+    .start_kc = KC_DISPEL,
+    .end_kc = KC_TGL_MIMIC,
+    .key_strings = "KC_DISPEL\0KC_TGL_MIMIC\0"
+};
+
 void disable_ime_then_restore_mods(void) {
     uint8_t real_mods_memory = get_mods();
     clear_mods();
