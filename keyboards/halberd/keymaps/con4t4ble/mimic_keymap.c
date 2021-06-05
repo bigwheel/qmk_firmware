@@ -1,7 +1,7 @@
 #include "mimic_keymap.h"
 
 #include QMK_KEYBOARD_H
-#include "util.h"
+#include "util_km.h"
 #include "keymap_jp.h"
 
 typedef struct {

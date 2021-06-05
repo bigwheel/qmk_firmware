@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "util.h"
+#include "util_km.h"
 #include "mimic_keymap.h"
 #include "auto_disable_ime.h"
 #include "auto_disable_ime_timer.h"
