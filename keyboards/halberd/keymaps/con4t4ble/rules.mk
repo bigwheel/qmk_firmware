@@ -1,5 +1,5 @@
 SRC += \
-	   util.c \
+	   util_km.c \
 	   mimic_keymap.c \
 	   config_macro.c \
 	   features.c \
