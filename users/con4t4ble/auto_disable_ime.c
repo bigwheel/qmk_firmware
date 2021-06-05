@@ -7,6 +7,13 @@
 
 bool dispel_is_pressing = false;
 
+const key_string_map_t custom_keys_user =
+{
+    .start_kc = KC_DISPEL,
+    .end_kc = KC_DISPEL,
+    .key_strings = "KC_DISPEL\0"
+};
+
 /*
  * 条件に当てはまるキー入力だったらIMEを無効化するキーをtapする
  */
