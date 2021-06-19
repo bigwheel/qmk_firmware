@@ -44,7 +44,7 @@ const uint16_t disabling_ime_keys[] = {
     KC_DOUBLE_QUOTE,
     KC_LEFT_ANGLE_BRACKET,
     KC_RIGHT_ANGLE_BRACKET,
-    KC_QUESTION
+    KC_QUESTION,
 };
 
 // shiftと一緒の場合はほとんどのキーでIMEを無効化するため、逆に無効化しないキーだけ列挙する
@@ -53,5 +53,5 @@ const uint16_t not_disabling_ime_keys_with_shift[] = {
     KC_LEFT,
     KC_RIGHT,
     KC_UP,
-    KC_DOWN
+    KC_DOWN,
 };
