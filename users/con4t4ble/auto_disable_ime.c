@@ -16,19 +16,27 @@ bool process_record_user_auto_disable_ime(uint16_t keycode, keyrecord_t *record)
         return PROCESS_OVERRIDE_BEHAVIOR;
     }
 
-    if (record->event.pressed && !dispel_is_pressing)
-        if (
-                (get_mods() & MOD_MASK_CSAG)
-                ||
-                exist_in_array(keycode, disabling_ime_keys, COUNT_OF(disabling_ime_keys))
-           )
-            // Shift SpaceだけはIME ONを維持する
-            if (!((get_mods() & MOD_MASK_SHIFT) && keycode == KC_SPC)) {
-                uint8_t real_mods_memory = get_mods();
-                clear_mods();
-                disable_ime();
-                set_mods(real_mods_memory);
-            }
+    if (!record->event.pressed || dispel_is_pressing)
+        return PROCESS_USUAL_BEHAVIOR;
+
+    if (
+            (get_mods() & MOD_MASK_SHIFT)
+            &&
+            exist_in_array(keycode, not_disabling_ime_keys_with_shift,
+                COUNT_OF(not_disabling_ime_keys_with_shift))
+        )
+        return PROCESS_USUAL_BEHAVIOR;
+
+    if (
+            (get_mods() & MOD_MASK_CSAG)
+            ||
+            exist_in_array(keycode, disabling_ime_keys, COUNT_OF(disabling_ime_keys))
+       ) {
+            uint8_t real_mods_memory = get_mods();
+            clear_mods();
+            disable_ime();
+            set_mods(real_mods_memory);
+        }
 
     return PROCESS_USUAL_BEHAVIOR;
 }
