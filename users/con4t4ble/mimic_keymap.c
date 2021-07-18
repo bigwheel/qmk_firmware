@@ -3,6 +3,7 @@
 #include QMK_KEYBOARD_H
 #include "util_km.h"
 #include "keymap_jp.h"
+#include "auto_disable_ime.h"
 
 typedef struct {
     uint16_t original_keycode;
@@ -66,6 +67,8 @@ bool shift_is_pressing(void) {
     return get_mods() & MOD_MASK_SHIFT;
 }
 
+bool is_mimicing = false;
+
 void process_mimic_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_with_shift) {
     uint8_t mod_state = get_mods();
 
@@ -90,12 +93,18 @@ void process_mimic_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_w
 }
 
 bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
-  // https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
-    for (int i = 0; i < sizeof kms / sizeof kms[0]; i++)
-        if (kms[i].original_keycode == keycode) {
-            process_mimic_key(record, &kms[i], &pressed_with_shifts[i]);
-            return PROCESS_OVERRIDE_BEHAVIOR;
-        }
+    if (keycode == KC_TGL_MIMIC && record->event.pressed) {
+        is_mimicing = !is_mimicing;
+        return PROCESS_OVERRIDE_BEHAVIOR;
+    }
+
+    // https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
+    if (is_mimicing)
+        for (int i = 0; i < sizeof kms / sizeof kms[0]; i++)
+            if (kms[i].original_keycode == keycode) {
+                process_mimic_key(record, &kms[i], &pressed_with_shifts[i]);
+                return PROCESS_OVERRIDE_BEHAVIOR;
+            }
 
     return PROCESS_USUAL_BEHAVIOR;
 }
