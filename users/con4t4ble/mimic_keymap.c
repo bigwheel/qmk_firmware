@@ -69,6 +69,8 @@ bool shift_is_pressing(void) {
 
 bool is_mimicing = false;
 
+bool invert_mimic_is_pressing = false;
+
 void process_mimic_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_with_shift) {
     uint8_t mod_state = get_mods();
 
@@ -93,13 +95,21 @@ void process_mimic_key(keyrecord_t* record, keycode_mapping* km, bool* pressed_w
 }
 
 bool process_record_user_mimic(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == KC_INVERT_MIMIC) {
+        invert_mimic_is_pressing = record->event.pressed;
+        return PROCESS_OVERRIDE_BEHAVIOR;
+    }
+
     if (keycode == KC_TGL_MIMIC && record->event.pressed) {
         is_mimicing = !is_mimicing;
         return PROCESS_OVERRIDE_BEHAVIOR;
     }
 
     // https://docs.qmk.fm/#/feature_advanced_keycodes?id=shift-backspace-for-delete
-    if (is_mimicing)
+    if (
+            ( is_mimicing && !invert_mimic_is_pressing) ||
+            (!is_mimicing &&  invert_mimic_is_pressing)
+       )
         for (int i = 0; i < sizeof kms / sizeof kms[0]; i++)
             if (kms[i].original_keycode == keycode) {
                 process_mimic_key(record, &kms[i], &pressed_with_shifts[i]);
