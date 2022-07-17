@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-
+#include "auto_disable_ime.h"
 
 /* THIS FILE WAS GENERATED!
  *
