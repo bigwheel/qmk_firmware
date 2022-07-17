@@ -6,8 +6,8 @@
 
 #define TAPPING_TERM 200
 
-#if defined PC_KEYMAP
-#    define INNER_MOD_KEY KC_LALT
-#else
-#    define INNER_MOD_KEY KC_LGUI
-#endif
+// 最初if definedでやろうとしたが、このconfig.hがkeyboards/xxx/keymaps下の
+// config.hより先に読まれるようでPC_KEYMAPが定義される前にここが評価されてしまうようだ
+// https://github.com/bigwheel/qmk_firmware/blob/b703d4a3bd8f752ae012caefddf699b4e03552e6/users/con4t4blev2/config.h
+// なので、マクロ関数にして評価タイミングを keymap下のコードが処理されるところまで遅延させた
+#define LEFT_OF_LEFT_LANG_KEY() (PC_KEYMAP ? KC_LALT : KC_LGUI)
