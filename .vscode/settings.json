@@ -34,5 +34,7 @@
         "**/.git": true,
         "**/.build": true
     },
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnSave": true
 }
