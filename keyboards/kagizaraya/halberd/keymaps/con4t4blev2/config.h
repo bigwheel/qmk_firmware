@@ -2,4 +2,4 @@
 
 #define COMBO_COUNT 3
 
-#define PC_KEYMAP 0 // macの場合はコメントアウト
+#define PC_KEYMAP false // macの場合はコメントアウト
