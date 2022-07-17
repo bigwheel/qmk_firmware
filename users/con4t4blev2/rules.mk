@@ -1,6 +1,5 @@
 SRC += \
 	   util_km.c \
-	   mimic_keymap.c \
 	   config_macro.c \
 	   features.c \
 	   disable_ime.c \
