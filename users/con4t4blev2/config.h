@@ -5,3 +5,9 @@
 #undef TAPPING_TERM
 
 #define TAPPING_TERM 200
+
+#if defined PC_KEYMAP
+#    define INNER_MOD_KEY KC_LALT
+#else
+#    define INNER_MOD_KEY KC_LGUI
+#endif
