@@ -2,7 +2,7 @@
 
 #include QMK_KEYBOARD_H
 #include "util_km.h"
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 #include "auto_disable_ime.h"
 
 typedef struct {
