@@ -1,7 +1,6 @@
 #pragma once
 
-// halberdはなぜかキーボード組み込み設定でTAPPING_TERM 100という
-// 超絶シビア設定になっている(´・ω・｀)ので一度設定を取り除く
+// halberdでTAPPING_TERM 100になっていて原因調査にとても困った経験があるため、
+// あまり美しくないが一律デフォルト値(200)へリセットしている
 #undef TAPPING_TERM
-
 #define TAPPING_TERM 200
