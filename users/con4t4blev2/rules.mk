@@ -1,6 +1,5 @@
 SRC += \
 	   util_km.c \
-	   config_macro.c \
 	   features.c \
 	   disable_ime.c \
 	   auto_disable_ime_timer.c \
