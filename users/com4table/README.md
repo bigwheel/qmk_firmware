@@ -16,19 +16,19 @@ PC と MAC 間のキー配置の差分を吸収する機能。
 
 #### 使い方
 
-そのキーボードを使いたい OS に合わせて
+そのキーボードを使いたい OS が PC なら
 
 ```c
-#include "virtual_keycode_pc.h"
+#define MAC_KEYMAP 0
 ```
 
-または
+MAC なら
 
 ```c
-#include "virtual_keycode_mac.h"
+#define MAC_KEYMAP 1
 ```
 
-のどちらかを keymap.c に記述する。
+のどちらかを config.h に記述する。
 
 #### 備考: デフォルトレイヤーによる PC/MAC 切り替えとこちらのどちらを使うか
 

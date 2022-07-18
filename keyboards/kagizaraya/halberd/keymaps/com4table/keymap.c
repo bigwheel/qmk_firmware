@@ -1,5 +1,5 @@
 #include "auto_disable_ime.h"
-#include "virtual_keycode_pc.h"
+#include "virtual_keycode.h"
 
 // ここまではテンプレートより追記
 #include QMK_KEYBOARD_H
