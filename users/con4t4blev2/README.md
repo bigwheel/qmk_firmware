@@ -16,12 +16,16 @@ PC と MAC 間のキー配置の差分を吸収する機能。
 
 #### 使い方
 
-キーボードが MAC 用の場合、keyboards/xxxx/keymaps/xxxx/rules.mk へ以下を追記する。
+そのキーボードを使いたい OS に合わせて
 
+```c
+#include "virtual_keycode_pc.h"
 ```
-define MAC_KEYMAP
+
+または
+
+```c
+#include "virtual_keycode_mac.h"
 ```
 
-#### 実装
-
-[rules.mk の機能](https://github.com/qmk/qmk_firmware/blob/master/docs/ja/feature_userspace.md#rulesmk)を利用している。
+のどちらかを keymap.c に記述する。
