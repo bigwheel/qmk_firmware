@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "notes": "最高のキーマップ",
+  "notes": "",
   "documentation": "\"This file is a QMK Configurator export. You can import this at <https://config.qmk.fm>. It can also be used directly with QMK's source code.\n\nTo setup your QMK environment check out the tutorial: <https://docs.qmk.fm/#/newbs>\n\nYou can convert this file to a keymap.c using this command: `qmk json2c {keymap}`\n\nYou can compile this keymap using this command: `qmk compile {keymap}`\"\n",
   "keyboard": "marksard/treadstone48/rev2",
-  "keymap": "marksard_treadstone48_rev2_layout_base_mine",
+  "keymap": "com4table",
   "layout": "LAYOUT_base",
   "layers": [
     [
@@ -98,8 +98,8 @@
       "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
-      "MO(3)",
       "KC_TRNS",
+      "MO(3)",
       "KC_TRNS",
       "KC_HOME",
       "KC_PGDN",
@@ -146,8 +146,8 @@
       "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
-      "KC_TRNS",
       "MO(3)",
+      "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
       "KC_TRNS",
@@ -257,5 +257,5 @@
       "KC_TRNS"
     ]
   ],
-  "author": "匿名"
+  "author": ""
 }
