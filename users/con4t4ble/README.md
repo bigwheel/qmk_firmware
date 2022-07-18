@@ -3,6 +3,7 @@
 https://kbigwheel.hateblo.jp/entry/no-pain-with-japanese-input
 
 こちらでまとめた通り、プログラミング中のタイピングと日本語入力のタイピングをどちらも快適にするというコンセプトで作ったキー入力上の機能の詰め合わせ。
+名前はフランス語の confort + leet。
 
 以下がその機能。
 
