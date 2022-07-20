@@ -1,47 +1,31 @@
-/*
-Copyright 2019 Sekigon
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #include QMK_KEYBOARD_H
 #include "app_ble_func.h"
+#include "auto_disable_ime.h"
+#include "auto_disable_ime_timer.h"
+#include "util_km.h"
 #include <stdio.h>
 
 enum custom_keycodes {
-    AD_WO_L = SAFE_RANGE, /* Start advertising without whitelist  */
-    BLE_DIS,              /* Disable BLE HID sending              */
-    BLE_EN,               /* Enable BLE HID sending               */
-    USB_DIS,              /* Disable USB HID sending              */
-    USB_EN,               /* Enable USB HID sending               */
-    DELBNDS,              /* Delete all bonding                   */
-    ADV_ID0,              /* Start advertising to PeerID 0        */
-    ADV_ID1,              /* Start advertising to PeerID 1        */
-    ADV_ID2,              /* Start advertising to PeerID 2        */
-    ADV_ID3,              /* Start advertising to PeerID 3        */
-    ADV_ID4,              /* Start advertising to PeerID 4        */
-    BATT_LV,              /* Display battery level in milli volts */
-    DEL_ID0,              /* Delete bonding of PeerID 0           */
-    DEL_ID1,              /* Delete bonding of PeerID 1           */
-    DEL_ID2,              /* Delete bonding of PeerID 2           */
-    DEL_ID3,              /* Delete bonding of PeerID 3           */
-    DEL_ID4,              /* Delete bonding of PeerID 4           */
-    ENT_DFU,              /* Start bootloader                     */
-    ENT_SLP,              /* Deep sleep mode                      */
-    KC_DISPEL,
+  AD_WO_L = COM4TABLE_SAFE_RANGE, /* Start advertising without whitelist  */
+  BLE_DIS,                        /* Disable BLE HID sending              */
+  BLE_EN,                         /* Enable BLE HID sending               */
+  USB_DIS,                        /* Disable USB HID sending              */
+  USB_EN,                         /* Enable USB HID sending               */
+  DELBNDS,                        /* Delete all bonding                   */
+  ADV_ID0,                        /* Start advertising to PeerID 0        */
+  ADV_ID1,                        /* Start advertising to PeerID 1        */
+  ADV_ID2,                        /* Start advertising to PeerID 2        */
+  ADV_ID3,                        /* Start advertising to PeerID 3        */
+  ADV_ID4,                        /* Start advertising to PeerID 4        */
+  BATT_LV,                        /* Display battery level in milli volts */
+  DEL_ID0,                        /* Delete bonding of PeerID 0           */
+  DEL_ID1,                        /* Delete bonding of PeerID 1           */
+  DEL_ID2,                        /* Delete bonding of PeerID 2           */
+  DEL_ID3,                        /* Delete bonding of PeerID 3           */
+  DEL_ID4,                        /* Delete bonding of PeerID 4           */
+  ENT_DFU,                        /* Start bootloader                     */
+  ENT_SLP,                        /* Deep sleep mode                      */
 };
-
 
 extern keymap_config_t keymap_config;
 
@@ -121,40 +105,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   )
 };
-
-void tap_code(uint8_t code) {
-    register_code(code);
-    if (code == KC_CAPS) {
-        // wait_ms(TAP_HOLD_CAPS_DELAY);
-        wait_ms(0);
-    } else {
-        // wait_ms(TAP_CODE_DELAY);
-    }
-    unregister_code(code);
-}
-
-
-
-
-// デフォルトレイヤーに合わせて日本語入力をOFFにする
-void off_ime() {
-  switch (biton32(default_layer_state)) {
-    case LAYER_PC:
-      tap_code(KC_MHEN);
-      break;
-    case LAYER_MAC:
-      tap_code(KC_LANG2);
-      break;
-    default:
-      SEND_STRING("ILLEGAL STATE!");
-  }
-}
-
-#define PROCESS_OVERRIDE_BEHAVIOR   (false)
-#define PROCESS_USUAL_BEHAVIOR      (true)
-
-#define MOD_MASK_SHIFT (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   char str[16];

@@ -1,9 +1,10 @@
 #include "auto_disable_ime.h"
 
 #include QMK_KEYBOARD_H
-#include "util_km.h"
-#include "disable_ime.h"
 #include "auto_disable_ime_keys.h"
+#include "disable_ime.h"
+#include "qmk_backward_func.h"
+#include "util_km.h"
 
 bool dispel_is_pressing = false;
 
