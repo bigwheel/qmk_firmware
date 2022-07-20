@@ -119,71 +119,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case DELBNDS:
       delete_bonds();
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case AD_WO_L:
       restart_advertising_wo_whitelist();
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case USB_EN:
       set_usb_enabled(true);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
       break;
     case USB_DIS:
       set_usb_enabled(false);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
       break;
     case BLE_EN:
       set_ble_enabled(true);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
       break;
     case BLE_DIS:
       set_ble_enabled(false);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
       break;
     case ADV_ID0:
       restart_advertising_id(0);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case ADV_ID1:
       restart_advertising_id(1);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case ADV_ID2:
       restart_advertising_id(2);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case ADV_ID3:
       restart_advertising_id(3);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case ADV_ID4:
       restart_advertising_id(4);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case DEL_ID0:
       delete_bond_id(0);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case DEL_ID1:
       delete_bond_id(1);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case DEL_ID2:
       delete_bond_id(2);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case DEL_ID3:
       delete_bond_id(3);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case BATT_LV:
       sprintf(str, "%4dmV", get_vcc());
       send_string(str);
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     case ENT_DFU:
       bootloader_jump();
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     }
   }
   else if (!record->event.pressed) {
     switch (keycode) {
     case ENT_SLP:
       sleep_mode_enter();
-      return false;
+      return PROCESS_OVERRIDE_BEHAVIOR;
     }
 
   }
 
-  return true;
+  return PROCESS_USUAL_BEHAVIOR;
 }
 ;
