@@ -1,3 +1,5 @@
 #pragma once
 
 #define MAC_KEYMAP 0
+
+#define CUSTOM_PROCESS_RECORD_USER
