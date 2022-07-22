@@ -18,3 +18,6 @@
 [submodule "lib/printf"]
 	path = lib/printf
 	url = https://github.com/qmk/printf
+[submodule "users/com4table"]
+	path = users/com4table
+	url = git@github.com:bigwheel/qmk_firmware-users-com4table.git
