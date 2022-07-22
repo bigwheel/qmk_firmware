@@ -11,3 +11,6 @@
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/google/googletest
+[submodule "users/com4table"]
+	path = users/com4table
+	url = git@github.com:bigwheel/qmk_firmware-users-com4table.git
