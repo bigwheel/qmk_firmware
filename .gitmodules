@@ -25,3 +25,6 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
+[submodule "users/com4table"]
+	path = users/com4table
+	url = git@github.com:bigwheel/qmk_firmware-users-com4table.git
