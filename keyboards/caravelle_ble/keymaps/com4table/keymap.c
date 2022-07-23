@@ -25,13 +25,15 @@ enum custom_keycodes {
   DEL_ID4,                        /* Delete bonding of PeerID 4           */
   ENT_DFU,                        /* Start bootloader                     */
   ENT_SLP,                        /* Deep sleep mode                      */
+  // TODO: 不要になったら消す
+  LOWER, /* Layer  keycode                       */
+  RAISE, /* Layer  keycode                       */
 };
 
 extern keymap_config_t keymap_config;
 
 enum {
-  LAYER_PC,
-  LAYER_MAC,
+  _QWERTY,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -45,63 +47,51 @@ enum {
 #define XXXXXXX KC_NO
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LAYER_PC] = LAYOUT(
+  [_QWERTY] = LAYOUT(
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,\
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,  \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,        XXXXXXX, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ESC, \
+    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LPRN,        KC_RPRN, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX,        XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,\
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC,        KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-             XXXXXXX, KC_LGUI, LT(2, KC_SPC),    LALT_T(KC_MHEN),         RALT_T(KC_HENK),  LT(3, KC_ENT),    KC_RGUI, XXXXXXX \
- //         +--------+--------+------------------+----------------+      +-----------------+-----------------+--------+--------+
-  ),
-
-  [LAYER_MAC] = LAYOUT(
- //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,\
- //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,        XXXXXXX, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ESC, \
- //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX,        XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,\
- //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-             XXXXXXX, KC_LALT, LT(2, KC_SPC),    LGUI_T(KC_LANG2),        RGUI_T(KC_LANG1), LT(3, KC_ENT),    KC_RALT, XXXXXXX \
- //         +--------+--------+------------------+----------------+      +-----------------+-----------------+--------+--------+
+                               ADJUST,  KC_LGUI, LOWER,   KC_SPC,         KC_ENT,  RAISE,   KC_RALT, KC_DEL \
+ //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   ),
 
   [_LOWER] = LAYOUT(
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
+    KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,        XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_DISPEL, XXXXXXX, \
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,          KC_GRV,  KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,        XXXXXXX, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,         KC_TILD, KC_PIPE, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-                               XXXXXXX, _______, _______, _______,        _______, MO(4),   _______, XXXXXXX \
+                               _______, _______, _______, _______,        _______, _______, _______, _______ \
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   ),
 
   [_RAISE] = LAYOUT(
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-    KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
+    _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    _______, KC_GRV,  KC_MINS, KC_EQL,  KC_SCLN, KC_QUOT, XXXXXXX,        XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_DISPEL, _______, \
+    _______, _______, _______, _______, _______, _______, _______,        XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-    _______, KC_LBRC, KC_RBRC, KC_BSLS, KC_COMM, KC_DOT,  XXXXXXX,        XXXXXXX, KC_SLSH, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+    _______, _______, _______, _______, _______, _______, _______,        XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-                               XXXXXXX, _______, MO(4),   _______,        _______, _______, _______, XXXXXXX \
+                               _______, _______, _______, _______,        _______, _______, _______, _______ \
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   ),
 
   [_ADJUST] = LAYOUT ( \
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-    XXXXXXX, RESET,   DF(0),   DF(1),   ENT_DFU, ENT_SLP,                          BATT_LV, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, AD_WO_L, ADV_ID1, ADV_ID2, ADV_ID3, ADV_ID4,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    _______, AD_WO_L, ADV_ID0, ADV_ID1, ADV_ID2, ADV_ID3, XXXXXXX,        XXXXXXX, XXXXXXX, KC_LANG5,KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, \
+    _______, DELBNDS, DEL_ID1, DEL_ID2, DEL_ID3, DEL_ID4, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-    _______, DELBNDS, DEL_ID0, DEL_ID1, DEL_ID2, DEL_ID3, XXXXXXX,        XXXXXXX, XXXXXXX, KC_CAPS, KC_INS,  KC_KANA, KC_APP,  _______, \
+    _______, BATT_LV, ENT_SLP, ENT_DFU, RESET,   XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-                               XXXXXXX, _______, _______, _______,        _______, _______, _______, XXXXXXX \
+                               _______, _______, _______, _______,        _______, _______, _______, _______ \
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   )
 };
@@ -114,6 +104,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_user_auto_disable_ime(keycode, record) ==
       PROCESS_OVERRIDE_BEHAVIOR)
     return PROCESS_OVERRIDE_BEHAVIOR;
+
+  switch (keycode) {
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+  }
 
   if (record->event.pressed) {
     switch (keycode) {
