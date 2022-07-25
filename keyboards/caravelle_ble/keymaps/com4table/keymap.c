@@ -39,9 +39,9 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,  \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
-    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LPRN,        KC_RPRN, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, RIGHT_OF_LEFT_CTRL_KEY, \
+    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LPRN,        KC_RPRN, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, LEFT_OF_LEFT_LANG_KEY, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC,        KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, LEFT_OF_LEFT_LANG_KEY, \
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC,        KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RIGHT_OF_LEFT_CTRL_KEY, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
            LEFT_OF_LEFT_LANG_KEY, LEFT_LANG_KEY, KC_SPC,  MO(1),          MO(2),   KC_ENT,  RIGHT_LANG_KEY, RIGHT_OF_LEFT_CTRL_KEY \
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
