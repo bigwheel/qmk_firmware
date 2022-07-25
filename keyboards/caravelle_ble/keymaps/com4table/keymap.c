@@ -26,29 +26,16 @@ enum custom_keycodes {
   DEL_ID4,                        /* Delete bonding of PeerID 4           */
   ENT_DFU,                        /* Start bootloader                     */
   ENT_SLP,                        /* Deep sleep mode                      */
-  // TODO: 不要になったら消す
-  LOWER, /* Layer  keycode                       */
-  RAISE, /* Layer  keycode                       */
 };
 
 extern keymap_config_t keymap_config;
-
-enum {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-};
-
-// Layer related keycodes
-#define ADJUST  MO(_ADJUST)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT(
+  [0] = LAYOUT(
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,  \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
@@ -56,11 +43,11 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LBRC,        KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, LEFT_OF_LEFT_LANG_KEY, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
-           LEFT_OF_LEFT_LANG_KEY, LEFT_LANG_KEY, KC_SPC,  LOWER,          RAISE,   KC_ENT,  RIGHT_LANG_KEY, RIGHT_OF_LEFT_CTRL_KEY \
+           LEFT_OF_LEFT_LANG_KEY, LEFT_LANG_KEY, KC_SPC,  MO(1),          MO(2),   KC_ENT,  RIGHT_LANG_KEY, RIGHT_OF_LEFT_CTRL_KEY \
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   ),
 
-  [_LOWER] = LAYOUT(
+  [1] = LAYOUT(
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
@@ -72,7 +59,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   ),
 
-  [_RAISE] = LAYOUT(
+  [2] = LAYOUT(
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
     KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
@@ -84,15 +71,27 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   ),
 
-  [_ADJUST] = LAYOUT ( \
+  [3] = LAYOUT ( \
  //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-    XXXXXXX, AD_WO_L, ADV_ID1, ADV_ID2, ADV_ID3, ADV_ID4,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    MO(3),   AD_WO_L, ADV_ID1, ADV_ID2, ADV_ID3, ADV_ID4,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
  //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
     _______, DELBNDS, DEL_ID1, DEL_ID2, DEL_ID3, DEL_ID4, XXXXXXX,        XXXXXXX, KC_PAUS, KC_LANG5,KC_PSCR, KC_SLCK, XXXXXXX, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
     _______, BATT_LV, ENT_SLP, ENT_DFU, RESET,   XXXXXXX, XXXXXXX,        XXXXXXX, KC_APP,  KC_CAPS, KC_INS,  KC_INT2, XXXXXXX, _______, \
  //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
                                _______, _______, _______, _______,        _______, _______, _______, _______ \
+ //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
+  ),
+
+  [4] = LAYOUT ( \
+ //+--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, \
+ //|--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------|
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+ //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
+ //|--------+--------+--------+--------+--------+--------+--------|      |--------+--------+--------+--------+--------+--------+--------|
+                               _______, _______, _______, _______,        _______, _______, _______, _______, \
  //                           +--------+--------+--------+--------+      +--------+--------+--------+--------+
   )
 };
@@ -105,29 +104,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (process_record_user_auto_disable_ime(keycode, record) ==
       PROCESS_OVERRIDE_BEHAVIOR)
     return PROCESS_OVERRIDE_BEHAVIOR;
-
-  switch (keycode) {
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-  }
 
   if (record->event.pressed) {
     switch (keycode) {
