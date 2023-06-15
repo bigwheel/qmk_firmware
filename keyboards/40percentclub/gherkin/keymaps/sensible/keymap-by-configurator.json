@@ -34,8 +34,8 @@
       "LT(4,KC_B)",
       "LT(5,KC_N)",
       "LT(3,KC_M)",
-      "RALT_T(KC_MHEN)",
-      "RGUI_T(KC_HENK)",
+      "RALT_T(KC_INT5)",
+      "RGUI_T(KC_INT4)",
       "RSFT_T(KC_SPC)"
     ],
     [

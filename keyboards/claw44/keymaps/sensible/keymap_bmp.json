@@ -42,10 +42,10 @@
       "KC_RSFT",
       "KC_LGUI",
       "LT(2,KC_SPC)",
-      "LALT_T(KC_MHEN)",
+      "LALT_T(KC_INT5)",
       "KC_NO",
       "KC_NO",
-      "RALT_T(KC_HENK)",
+      "RALT_T(KC_INT4)",
       "LT(3,KC_ENT)",
       "KC_RGUI"
     ],

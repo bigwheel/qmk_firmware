@@ -27,10 +27,10 @@ const uint16_t leave_ime_on_keys[] = {
   KC_ESCAPE,
   // KC_MINUS,
   KC_EQUAL,
-  KC_LBRACKET,
-  KC_RBRACKET,
-  KC_BSLASH,
-  KC_SCOLON,
+  KC_LBRC,
+  KC_RBRC,
+  KC_BSLS,
+  KC_SCLN,
   KC_QUOTE,
   KC_GRAVE,
   // KC_COMMA,
@@ -95,10 +95,10 @@ const uint16_t leave_ime_on_keys_with_shift[] = {
   KC_ESCAPE,
   KC_MINUS,
   KC_EQUAL,
-  KC_LBRACKET,
-  KC_RBRACKET,
-  KC_BSLASH,
-  KC_SCOLON,
+  KC_LBRC,
+  KC_RBRC,
+  KC_BSLS,
+  KC_SCLN,
   KC_QUOTE,
   KC_GRAVE,
   KC_COMMA,
@@ -145,7 +145,7 @@ uint16_t last_key_record_time = 0;
 void off_ime(void) {
   switch (biton32(default_layer_state)) {
     case LAYER_PC:
-      tap_code(KC_MHEN);
+      tap_code(KC_INT5);
       break;
     case LAYER_MAC:
       tap_code(KC_LANG2);

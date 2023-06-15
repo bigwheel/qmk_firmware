@@ -12,7 +12,7 @@ enum layers {
 void disable_ime(void) {
   switch (biton32(default_layer_state)) {
     case LAYER_PC:
-      tap_code(KC_MHEN);
+      tap_code(KC_INT5);
       break;
     case LAYER_MAC:
       tap_code(KC_LANG2);

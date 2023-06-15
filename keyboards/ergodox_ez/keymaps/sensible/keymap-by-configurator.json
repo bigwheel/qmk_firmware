@@ -79,8 +79,8 @@
       "KC_NO",
       "KC_LGUI",
       "LT(2,KC_SPC)",
-      "LALT_T(KC_MHEN)",
-      "RALT_T(KC_HENK)",
+      "LALT_T(KC_INT5)",
+      "RALT_T(KC_INT4)",
       "LT(3,KC_ENT)",
       "KC_RGUI"
     ],

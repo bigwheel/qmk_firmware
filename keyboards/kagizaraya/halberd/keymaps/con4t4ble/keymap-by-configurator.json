@@ -37,12 +37,12 @@
       "KC_DOT",
       "KC_SLSH",
       "KC_LALT",
-      "KC_MHEN",
+      "KC_INT5",
       "KC_SPC",
       "MO(2)",
       "MO(3)",
       "KC_ENT",
-      "KC_HENK"
+      "KC_INT4"
     ],
     [
       "KC_TAB",
