@@ -15,7 +15,7 @@ void disable_ime(void) {
       tap_code(KC_INT5);
       break;
     case LAYER_MAC:
-      tap_code(KC_LANG2);
+      tap_code(KC_LNG2);
       break;
     default:
       SEND_STRING("ILLEGAL STATE!");

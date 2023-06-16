@@ -156,10 +156,10 @@
       "KC_NO",
       "KC_NO",
       "KC_SPC",
-      "KC_LANG2",
+      "KC_LNG2",
       "KC_NO",
       "KC_NO",
-      "KC_LANG1",
+      "KC_LNG1",
       "KC_ENT"
     ],
     [
@@ -354,7 +354,7 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "ANY(KC_LANG5)",
+      "ANY(KC_LNG5)",
       "KC_PSCR",
       "KC_SLCK",
       "KC_PAUS",
