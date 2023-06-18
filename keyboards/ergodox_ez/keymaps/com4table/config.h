@@ -1,3 +1,3 @@
 #pragma once
 
-#define MAC_KEYMAP 1
+#define MAC_KEYMAP 0
